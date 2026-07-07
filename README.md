@@ -54,7 +54,7 @@ The application demonstrates modern software engineering practices including:
 
 | Events | Seat Selection |
 |---------|---------------|
-| ![](./README-assets/User_Dashboard.png) | ![](./README-assets/User_seat.png) |
+| ![](./README-assets/User_Dashboard.png) | ![](./README-assets/User_Seat.png) |
 
 | Wallet | Purchased Tickets |
 |---------|-------------------|
