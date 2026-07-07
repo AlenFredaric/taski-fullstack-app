@@ -41,6 +41,45 @@ The application demonstrates modern software engineering practices including:
 
 ---
 
+# Screenshots
+# Screenshots
+
+| Landing |
+|---------|
+| ![](./README-assets/LandingPage.png) |
+
+| Login/Signin | Register/Signup |
+|--------------|-----------------|
+| ![](./README-assets/Login.png) | ![](./README-assets/signup.png) |
+
+| Events | Seat Selection |
+|---------|---------------|
+| ![](./README-assets/User_Dashboard.png) | ![](./README-assets/User_seat.png) |
+
+| Wallet | Purchased Tickets |
+|---------|-------------------|
+| ![](./README-assets/User_Wallet.png) | ![](./README-assets/User_Ticket.png) |
+
+| Booking Updates |
+|-----------------|
+| ![](./README-assets/User_BookingUpdates.png) |
+
+| Mobile View 1 | Mobile View2 |
+|---------------|--------------|
+| ![](./README-assets/User_Dashboard_%20m1.png) | ![](./README-assets/User_Dashboard_%20m2.png) |
+
+| Admin Dashboard | Event Registry |
+|-----------------|----------------|
+| ![](./README-assets/Admin_Dashboard.png) | ![](./README-assets/Admin_Venue.png) |
+
+| Bookings | Transactions |
+|----------|--------------|
+| ![](./README-assets/Admin_Booking.png) | ![](./README-assets/Admin_Transaction.png) |
+
+| Mobile View 1 |
+|---------------|
+| ![](./README-assets/AdminDashboardm1.png) |
+
 # Features
 
 ## Authentication
