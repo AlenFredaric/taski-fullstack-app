@@ -4,19 +4,25 @@ import { Ticket, ArrowRight, Cpu, Layers, Server, Database, Mail, Lock, User, Ey
 import { AuthContext } from '../App';
 
 export default function LandingPageView() {
-  const { login, register } = useContext(AuthContext);
+  const {
+    login,
+    register,
+    authError,
+    setAuthError
+  } = useContext(AuthContext);
   const [showAuthCard, setShowAuthCard] = useState(false);
-  const [authMode, setAuthMode] = useState('login'); 
+  const [authMode, setAuthMode] = useState('login');
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState('user');
-  const [error] = useState('');
+  const error = authError;
 
   const handleAuthSubmit = (e) => {
     e.preventDefault();
+    setAuthError('');
     if (authMode === 'login') {
       login(email, password);
     } else {
@@ -26,25 +32,27 @@ export default function LandingPageView() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col justify-between antialiased">
-      <nav className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 px-8 py-4 flex justify-between items-center shadow-sm">
-        <div className="flex items-center gap-2">
-          <div className="bg-[#0EA5E9] text-white p-1.5 rounded-lg flex items-center justify-center shadow-md">
-            <Ticket className="h-5 w-5" />
+      {!showAuthCard && (
+        <nav className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 px-8 py-4 flex justify-between items-center shadow-sm">
+          <div className="flex items-center gap-2">
+            <div className="bg-[#0EA5E9] text-white p-1.5 rounded-lg flex items-center justify-center shadow-md">
+              <Ticket className="h-5 w-5" />
+            </div>
+            <span className="text-xl font-black text-slate-950 tracking-tight">taSki</span>
           </div>
-          <span className="text-xl font-black text-slate-950 tracking-tight">taSki</span>
-        </div>
-        <button 
-          onClick={() => { setShowAuthCard(true); setAuthMode('login'); }}
-          className="px-5 py-2 rounded-xl text-sm font-bold text-[#0EA5E9] border border-sky-100 bg-sky-50/40 hover:bg-sky-50 transition-all cursor-pointer"
-        >
-          Sign In
-        </button>
-      </nav>
+          <button
+            onClick={() => { setShowAuthCard(true); setAuthMode('login'); }}
+            className="px-5 py-2 rounded-xl text-sm font-bold text-[#0EA5E9] border border-sky-100 bg-sky-50/40 hover:bg-sky-50 transition-all cursor-pointer"
+          >
+            Sign In
+          </button>
+        </nav>
+      )}
 
       <div className="w-full flex-1 flex flex-col justify-center items-center">
         {!showAuthCard ? (
           <div className="w-full max-w-6xl mx-auto px-6 py-16 animate-fadeIn flex flex-col items-center">
-            
+
             <div className="text-center max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 bg-sky-50 border border-sky-100 px-3 py-1.5 rounded-full text-[11px] font-extrabold text-[#0EA5E9] uppercase tracking-wider mb-6">
                 Enterprise-Grade Concurrency Protection
@@ -57,13 +65,13 @@ export default function LandingPageView() {
                 Experience high-performance booking secured with strict idempotency ledgers. Zero double-booking, real-time millisecond locking mechanism, and automated decentralized wallet settlement.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <button 
+                <button
                   onClick={() => { setShowAuthCard(true); setAuthMode('register'); }}
                   className="px-8 py-3 bg-[#0EA5E9] hover:bg-[#0EA5E9]/90 text-white font-extrabold rounded-xl text-sm shadow-lg shadow-[#0EA5E9]/20 transition-all active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer border-none"
                 >
                   Get Started for Free <ArrowRight className="h-4 w-4" />
                 </button>
-                <button 
+                <button
                   onClick={() => { setShowAuthCard(true); setAuthMode('login'); }}
                   className="px-8 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-bold rounded-xl text-sm transition-all cursor-pointer"
                 >
@@ -94,7 +102,7 @@ export default function LandingPageView() {
             <div className="w-full max-w-5xl mt-12">
               <h2 className="text-2xl font-extrabold text-center text-slate-950 mb-2">Engineered for High-Concurrency</h2>
               <p className="text-xs text-slate-400 text-center font-bold uppercase tracking-wider mb-10">How taSki handles race conditions</p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
                   <div className="h-10 w-10 rounded-xl bg-sky-50 text-[#0EA5E9] flex items-center justify-center mb-4">
@@ -126,15 +134,19 @@ export default function LandingPageView() {
               </div>
             </div>
 
-            
+
           </div>
         ) : (
           <div className="w-full relative max-w-7xl p-4 flex flex-col items-center animate-fadeIn">
-            <button 
-              onClick={() => setShowAuthCard(false)}
+            
+            <button
+              onClick={() => {
+                setAuthError('');
+                setShowAuthCard(false);
+              }}
               className="text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors bg-white border border-slate-200 px-5 py-2 rounded-full shadow-sm mb-4 cursor-pointer"
             >
-              &larr; Back to Introduction Page
+              ← Back to Introduction Page
             </button>
             <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-xl relative overflow-hidden">
               <div className="absolute top-0 inset-x-0 h-[4px] bg-[#0EA5E9]"></div>
@@ -181,18 +193,24 @@ export default function LandingPageView() {
                     </button>
                   </div>
                 </div>
-              
+
                 <button type="submit" className="w-full py-3.5 bg-[#0EA5E9] hover:bg-[#0EA5E9]/90 text-white font-black rounded-xl text-base shadow-md mt-6 transition-all active:scale-[0.99] border-none cursor-pointer">
                   {authMode === 'login' ? 'Sign In' : 'Authorize Account'}
                 </button>
               </form>
 
               <div className="mt-6 border-t border-slate-100 pt-5 text-center">
-                <button 
-                  onClick={() => setAuthMode(authMode === 'login' ? 'register' : 'login')} 
+                
+                <button
+                  onClick={() => {
+                    setAuthError('');
+                    setAuthMode(authMode === 'login' ? 'register' : 'login');
+                  }}
                   className="text-sm font-bold text-[#0EA5E9] hover:underline transition-all bg-transparent border-none cursor-pointer"
                 >
-                  {authMode === 'login' ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+                  {authMode === 'login'
+                    ? "Don't have an account? Sign up"
+                    : "Already have an account? Sign in"}
                 </button>
               </div>
             </div>

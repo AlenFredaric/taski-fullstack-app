@@ -8,7 +8,7 @@ import LandingPageView from './components/LandingPageView';
 import UserDashboardView from './components/UserDashboardView';
 import AdminDashboardView from './components/AdminDashboardView';
 
-// const api = axios.create({ baseURL: 'http://localhost:5000/api' });
+// const api = axios.create({ baseURL: 'http://localhost:5000/api' });y
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
@@ -24,11 +24,12 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [currentView, setCurrentView] = useState('overview'); 
+  const [currentView, setCurrentView] = useState('overview');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notifications, setNotifications] = useState([]);
   const [supportTickets, setSupportTickets] = useState([]);
+  const [authError, setAuthError] = useState('');
 
   const loadUser = async () => {
     if (!token) { setLoading(false); return; }
@@ -54,27 +55,83 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
+
+    setAuthError('');
+
     try {
-      const res = await api.post('/auth/login', { email, password });
+
+      const res = await api.post('/auth/login', {
+        email,
+        password,
+      });
+
       const { token: userToken, ...userData } = res.data;
+
       localStorage.setItem('token', userToken);
       localStorage.setItem('userData', JSON.stringify(userData));
-      setToken(userToken); 
-      setUser(userData); 
-      setCurrentView(userData.role === 'admin' ? 'admin' : 'overview');
-    } catch (err) { toast.error(err.response?.data?.message || 'Login Failed'); }
+
+      setToken(userToken);
+      setUser(userData);
+
+      setCurrentView(
+        userData.role === 'admin'
+          ? 'admin'
+          : 'overview'
+      );
+
+    } catch (err) {
+
+      const message =
+        err.response?.data?.message ||
+        'Invalid email or password';
+
+      setAuthError(message);
+
+      toast.error(message);
+
+    }
+
   };
 
   const register = async (name, email, password, role) => {
+
+    setAuthError('');
+
     try {
-      const res = await api.post('/auth/register', { name, email, password, role });
+
+      const res = await api.post('/auth/register', {
+        name,
+        email,
+        password,
+        role,
+      });
+
       const { token: userToken, ...userData } = res.data;
+
       localStorage.setItem('token', userToken);
       localStorage.setItem('userData', JSON.stringify(userData));
-      setToken(userToken); 
-      setUser(userData); 
-      setCurrentView(userData.role === 'admin' ? 'admin' : 'overview');
-    } catch (err) { toast.error(err.response?.data?.message || 'Registration Failed'); }
+
+      setToken(userToken);
+      setUser(userData);
+
+      setCurrentView(
+        userData.role === 'admin'
+          ? 'admin'
+          : 'overview'
+      );
+
+    } catch (err) {
+
+      const message =
+        err.response?.data?.message ||
+        'Registration Failed';
+
+      setAuthError(message);
+
+      toast.error(message);
+
+    }
+
   };
 
   const logout = () => {
@@ -95,10 +152,36 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{
-      user, currentView, setCurrentView, selectedEvent, setSelectedEvent,
-      login, register, logout, refreshUserWallet, loading, api, notifications, setNotifications, addNotification, supportTickets, setSupportTickets
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        currentView,
+        setCurrentView,
+        selectedEvent,
+        setSelectedEvent,
+
+        login,
+        register,
+        logout,
+
+        refreshUserWallet,
+
+        loading,
+
+        api,
+
+        notifications,
+        setNotifications,
+
+        addNotification,
+
+        supportTickets,
+        setSupportTickets,
+
+        authError,
+        setAuthError,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
