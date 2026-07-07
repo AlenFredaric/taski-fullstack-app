@@ -1,0 +1,273 @@
+{
+  "info": {
+    "_postman_id": "8f820ed0-51d6-41a3-94a4-0e6c49d55986",
+    "name": "Ticket Booking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56462187",
+    "_collection_link": "https://go.postman.co/collection/56462187-8f820ed0-51d6-41a3-94a4-0e6c49d55986?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Alen Fredaric\",\r\n  \"email\": \"alen@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/auth/register",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"alen@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/auth/login",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Money",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGQ2ZTViMTBiNGY5NzU2ZDM0NmU3YiIsImlhdCI6MTc4MzQ1OTU3NCwiZXhwIjoxNzg2MDUxNTc0fQ.K03lCS-efNWRe0Tn3Os022AgIEQqkTv7XpKbqQj_Ul8",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"amount\": 6000,\r\n  \"idempotencyKey\": \"txn-002\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/wallet/add",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "wallet",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Wallet Details",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGQ2ZTViMTBiNGY5NzU2ZDM0NmU3YiIsImlhdCI6MTc4MzQ1OTU3NCwiZXhwIjoxNzg2MDUxNTc0fQ.K03lCS-efNWRe0Tn3Os022AgIEQqkTv7XpKbqQj_Ul8",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/wallet/details",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "wallet",
+            "details"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Events",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/events",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "events"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Seats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/events/6a4b9a1dfcbca12013161076/seats",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "events",
+            "6a4b9a1dfcbca12013161076",
+            "seats"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login Admin",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"myadmin@taski.com\",\r\n  \"password\": \"myadmin@000\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/auth/login",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All booking",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGJhNDMwODZmMTgzZTZhNTExNDIwMSIsImlhdCI6MTc4MzQ2MDkwOCwiZXhwIjoxNzg2MDUyOTA4fQ.8531Qei1ZR-USxd1UNjqc_P31NfVFV8UnYDTJCytom4",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://taski-fullstack-app.onrender.com/api/admin/bookings",
+          "protocol": "https",
+          "host": [
+            "taski-fullstack-app",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "bookings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register Event",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
